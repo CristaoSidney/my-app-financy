@@ -12,6 +12,8 @@ ReactDOM.render(
     domain={domain}
     clientId={clientId}
     redirectUri={window.location.origin}
+    audience={"https://my-app-financy-backend.onrender.com/api"}
+    scope={"openid profile email"}    
   >
     <Router>
       <App />
