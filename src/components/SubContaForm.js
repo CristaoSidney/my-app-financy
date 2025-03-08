@@ -4,7 +4,7 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { 
   Button, TextField, MenuItem, Paper, Typography, 
-  Backdrop, CircularProgress 
+  Backdrop, CircularProgress, Alert 
 } from "@mui/material";
 
 const API_URL = "https://my-app-financy-backend.onrender.com/api/sub-conta";
@@ -14,6 +14,7 @@ export default function SubContaForm() {
   const [subConta, setSubConta] = useState({ descricao: "", naturezaDaConta: "", grupoContas: "" });
   const [grupos, setGrupos] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
   const { getAccessTokenSilently } = useAuth0();
@@ -33,8 +34,9 @@ export default function SubContaForm() {
           const subContaResponse = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
           setSubConta(subContaResponse.data);
         }
-      } catch (error) {
+    } catch (error) {
         console.error("Erro ao buscar dados:", error);
+        setError("Falha ao carregar os dados. Tente novamente.");
       } finally {
         setLoading(false);
       }
@@ -48,6 +50,7 @@ export default function SubContaForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     setLoading(true);
     try {
       const token = await getAccessTokenSilently();
@@ -61,6 +64,11 @@ export default function SubContaForm() {
       navigate("/sub-conta");
     } catch (error) {
       console.error("Erro ao salvar subconta:", error);
+      if (error.response) {
+        setError(error.response.data.message || "Erro no servidor. Tente novamente.");
+      } else {
+        setError("Erro ao conectar com o servidor.");
+      }      
     } finally {
       setLoading(false);
     }
@@ -76,6 +84,11 @@ export default function SubContaForm() {
         <Typography variant="h6" component="h2" gutterBottom>
           {id ? "Editar SubConta" : "Criar SubConta"}
         </Typography>
+        {error && (
+          <Alert severity="error" style={{ marginBottom: "16px" }}>
+            {error}
+          </Alert>
+        )}        
         <form onSubmit={handleSubmit}>
           <TextField
             label="Descrição"

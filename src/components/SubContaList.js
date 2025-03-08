@@ -4,7 +4,7 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { 
   Table, TableBody, TableCell, TableContainer, TableHead, 
-  TableRow, Paper, Typography, IconButton, Backdrop, CircularProgress 
+  TableRow, Paper, Typography, IconButton, Backdrop, CircularProgress, Alert 
 } from "@mui/material";
 import { Delete, Edit, Add } from "@mui/icons-material";
 
@@ -13,18 +13,21 @@ const API_URL = "https://my-app-financy-backend.onrender.com/api/sub-conta";
 export default function SubContaList() {
   const [subContas, setSubContas] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const { getAccessTokenSilently } = useAuth0();
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchSubContas() {
       setLoading(true);
+      setError("");
       try {
         const token = await getAccessTokenSilently();
         const response = await axios.get(API_URL, { headers: { Authorization: `Bearer ${token}` } });
         setSubContas(response.data);
       } catch (error) {
         console.error("Erro ao buscar subcontas:", error);
+        setError("Falha ao carregar SubContas. Tente novamente.");
       } finally {
         setLoading(false);
       }
@@ -35,12 +38,14 @@ export default function SubContaList() {
   const handleDelete = async (id) => {
     if (window.confirm("Tem certeza que deseja excluir esta subconta?")) {
       setLoading(true);
+      setError("");
       try {
         const token = await getAccessTokenSilently();
         await axios.delete(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
         setSubContas(subContas.filter((subConta) => subConta.id !== id));
       } catch (error) {
         console.error("Erro ao excluir subconta:", error);
+        setError("Erro ao excluir SubConta. Tente novamente.");
       } finally {
         setLoading(false);
       }
@@ -57,6 +62,12 @@ export default function SubContaList() {
         <Typography variant="h6" gutterBottom style={{ padding: "16px" }}>
           Subcontas
         </Typography>
+        {/* Exibir erro caso exista */}
+        {error && (
+          <Alert severity="error" style={{ margin: "16px" }}>
+            {error}
+          </Alert>
+        )}        
         <Table>
           <TableHead>
             <TableRow>
