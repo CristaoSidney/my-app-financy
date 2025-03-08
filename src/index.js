@@ -2,7 +2,6 @@ import React from "react";
 import App from "./App";
 import AuthProvider from "./components/AuthProvider";
 import { CssBaseline } from "@mui/material";
-
 import { createRoot } from 'react-dom/client';
 
 import './index.css';
