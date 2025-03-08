@@ -3,7 +3,8 @@ import { Link, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import GrupoContaList from "./GrupoContaList";
 import GrupoContaForm from "./GrupoContaForm";
-import SubConta from "./SubConta";
+import SubContaList from "./SubContaList";
+import SubContaForm from "./SubContaForm";
 
 export default function Menu({ open, toggleDrawer }) {
   return (
@@ -27,7 +28,9 @@ export default function Menu({ open, toggleDrawer }) {
         <Route path="/grupo-conta" element={<GrupoContaList />} />
         <Route path="/grupo-conta/create" element={<GrupoContaForm />} />
         <Route path="/grupo-conta/edit/:id" element={<GrupoContaForm />} />
-        <Route path="/sub-conta" element={<SubConta />} />
+        <Route path="/sub-conta" element={<SubContaList />} />
+        <Route path="/sub-conta/create" element={<SubContaForm />} />
+        <Route path="/sub-conta/edit/:id" element={<SubContaForm />} />
       </Routes>
     </>
   );
