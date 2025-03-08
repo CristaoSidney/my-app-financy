@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { Delete, Edit, Add } from "@mui/icons-material";
 
-const API_URL = "https://my-app-financy-backend.onrender.com/api/sub-contas";
+const API_URL = "https://my-app-financy-backend.onrender.com/api/sub-conta";
 
 export default function SubContaList() {
   const [subContas, setSubContas] = useState([]);

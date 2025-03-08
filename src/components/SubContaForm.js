@@ -7,7 +7,7 @@ import {
   Backdrop, CircularProgress 
 } from "@mui/material";
 
-const API_URL = "https://my-app-financy-backend.onrender.com/api/sub-contas";
+const API_URL = "https://my-app-financy-backend.onrender.com/api/sub-conta";
 const API_GRUPO_URL = "https://my-app-financy-backend.onrender.com/api/grupo-contas";
 
 export default function SubContaForm() {
