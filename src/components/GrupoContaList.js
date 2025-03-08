@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography } from "@mui/material";
+import { IconButton } from '@mui/material';
+import { Delete, Edit, Add } from '@mui/icons-material';
 
 const API_URL = "https://my-app-financy-backend.onrender.com/api/grupo-contas";
 
@@ -49,20 +51,20 @@ export default function GrupoContaList() {
               <TableCell>{grupo.descricao}</TableCell>
               <TableCell>{grupo.naturezaDaConta}</TableCell>
               <TableCell>
-                <Button variant="contained" color="primary" onClick={() => navigate(`/grupo-conta/edit/${grupo.id}`)} style={{ marginRight: "8px" }}>
-                  Editar
-                </Button>
-                <Button variant="contained" color="secondary" onClick={() => handleDelete(grupo.id)}>
-                  Excluir
-                </Button>
+                <IconButton variant="contained" color="primary" onClick={() => navigate(`/grupo-conta/edit/${grupo.id}`)} style={{ marginRight: "8px" }} aria-label="editar">
+                    <Edit />
+                </IconButton>
+                <IconButton variant="contained" color="secondary"  onClick={() => handleDelete(grupo.id)} aria-label="excluir">
+                    <Delete />
+                </IconButton>                
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Button variant="contained" color="primary" style={{ margin: "16px" }} onClick={() => navigate("/grupo-conta/create")}>
-        Adicionar Grupo
-      </Button>
+      <IconButton variant="contained" color="primary" style={{ margin: "16px" }} onClick={() => navigate("/grupo-conta/create")} aria-label="adicionar">
+        <Add />
+      </IconButton>      
     </TableContainer>
   );
 }
