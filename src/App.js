@@ -3,9 +3,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { AppBar, Toolbar, Button, Typography, Container, Drawer, List, ListItem, ListItemText, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
-import GrupoConta from './GrupoConta';
-import SubConta from './SubConta';
-import Home from './Home';
+import GrupoConta from './components/GrupoConta';
+import SubConta from './components/SubConta';
+import Home from './pages/Home';
 
 export default function AppAuth() {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
