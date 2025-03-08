@@ -63,8 +63,8 @@ export default function GrupoContaForm() {
           margin="normal"
           required
         >
-          <MenuItem value="RECEITA">Receita</MenuItem>
-          <MenuItem value="DESPESA">Despesa</MenuItem>
+          <MenuItem value="CREDITO">Crédito</MenuItem>
+          <MenuItem value="DEBITO">Débito</MenuItem>
         </TextField>
         <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: "16px" }}>
           {id ? "Atualizar" : "Criar"}
