@@ -5,6 +5,8 @@ import GrupoContaList from "./GrupoContaList";
 import GrupoContaForm from "./GrupoContaForm";
 import SubContaList from "./SubContaList";
 import SubContaForm from "./SubContaForm";
+import ContraChequeForm from "./ContraChequeForm";
+import ContraChequeList from "./ContraChequeList";
 import ContraChequeRubricaForm from "./ContraChequeRubricaForm";
 import ContraChequeRubricaList from "./ContraChequeRubricaList";
 
@@ -36,9 +38,9 @@ export default function Menu({ open, toggleDrawer }) {
         <Route path="/sub-conta" element={<SubContaList />} />
         <Route path="/sub-conta/create" element={<SubContaForm />} />
         <Route path="/sub-conta/edit/:id" element={<SubContaForm />} />
-        <Route path="/contra-cheque" element={<SubContaList />} />
-        <Route path="/contra-cheque/create" element={<SubContaForm />} />
-        <Route path="/contra-cheque/edit/:id" element={<SubContaForm />} />
+        <Route path="/contra-cheque" element={<ContraChequeList />} />
+        <Route path="/contra-cheque/create" element={<ContraChequeForm />} />
+        <Route path="/contra-cheque/edit/:id" element={<ContraChequeForm />} />
         <Route path="/contra-cheque/:id/add-rubrica" element={<ContraChequeRubricaForm />} />      
         <Route path="/contra-cheque/:id/rubricas" element={<ContraChequeRubricaList />} />      
         <Route path="/contra-cheque/:id/rubricas/edit/:rubrica.id" element={<ContraChequeRubricaForm />} />      
