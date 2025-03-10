@@ -41,10 +41,10 @@ export default function Menu({ open, toggleDrawer }) {
         <Route path="/contra-cheque" element={<ContraChequeList />} />
         <Route path="/contra-cheque/create" element={<ContraChequeForm />} />
         <Route path="/contra-cheque/edit/:id" element={<ContraChequeForm />} />
-        <Route path="/contra-cheque/:id/add-rubrica" element={<ContraChequeRubricaForm />} />      
-        <Route path="/contra-cheque/:id/rubricas" element={<ContraChequeRubricaList />} />      
-        <Route path="/contra-cheque/:id/rubricas/edit/:rubrica.id" element={<ContraChequeRubricaForm />} />      
-        <Route path="/contra-cheque/:id/rubricas/create" element={<ContraChequeRubricaForm />} />      
+        <Route path="/contra-cheque/:contraChequeId/add-rubrica" element={<ContraChequeRubricaForm />} />      
+        <Route path="/contra-cheque/:contraChequeId/rubricas" element={<ContraChequeRubricaList />} />      
+        <Route path="/contra-cheque/:contraChequeId/rubricas/edit/:rubrica.id" element={<ContraChequeRubricaForm />} />      
+        <Route path="/contra-cheque/:contraChequeId/rubricas/create" element={<ContraChequeRubricaForm />} />      
       </Routes>
     </>
   );
