@@ -9,6 +9,8 @@ import ContraChequeForm from "./ContraChequeForm";
 import ContraChequeList from "./ContraChequeList";
 import ContraChequeRubricaForm from "./ContraChequeRubricaForm";
 import ContraChequeRubricaList from "./ContraChequeRubricaList";
+import ContaSaldoForm from "./ContaSaldoForm";
+import ContaSaldoList from "./ContaSaldoList";
 
 export default function Menu({ open, toggleDrawer }) {
   return (
@@ -26,6 +28,9 @@ export default function Menu({ open, toggleDrawer }) {
           </ListItem>
           <ListItem button component={Link} to="/contra-cheque" onClick={toggleDrawer(false)}>
             <ListItemText primary="Contra Cheque" />
+          </ListItem>
+          <ListItem button component={Link} to="/conta-saldo" onClick={toggleDrawer(false)}>
+            <ListItemText primary="Conta Saldo" />
           </ListItem>
         </List>
       </Drawer>
@@ -45,6 +50,9 @@ export default function Menu({ open, toggleDrawer }) {
         <Route path="/contra-cheque/:contraChequeId/rubricas" element={<ContraChequeRubricaList />} />      
         <Route path="/contra-cheque/:contraChequeId/rubricas/edit/:rubrica.id" element={<ContraChequeRubricaForm />} />      
         <Route path="/contra-cheque/:contraChequeId/rubricas/create" element={<ContraChequeRubricaForm />} />      
+        <Route path="/conta-saldo" element={<ContaSaldoList />} />
+        <Route path="/conta-saldo/create" element={<ContaSaldoForm />} />
+        <Route path="/conta-saldo/edit/:id" element={<ContaSaldoForm />} />
       </Routes>
     </>
   );
