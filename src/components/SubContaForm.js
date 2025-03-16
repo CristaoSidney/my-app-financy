@@ -33,7 +33,8 @@ export default function SubContaForm() {
         if (id) {
           const subContaResponse = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
           const subContaData = subContaResponse.data;
-          
+          console.log(subContaData);
+
           const subGrupoContaResponse = await axios.get(`${API_URL}/${subContaData.grupoContas}`, { headers: { Authorization: `Bearer ${token}` } });
           setSubConta({
             ...subContaData,
@@ -122,7 +123,7 @@ export default function SubContaForm() {
           <TextField
             label="Grupo de Contas"
             name="grupoContas"
-            value={subConta.grupoContas}
+            value={subConta.grupoContas.descricao}
             onChange={handleChange}
             select
             fullWidth
