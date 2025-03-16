@@ -92,13 +92,13 @@ export default function DespesaMensalList() {
         </Alert>
       )}
       <TableContainer component={Paper} style={{ opacity: loading ? 0.5 : 1 }}>
-      <div style={{ display: "flex", alignItems: "center", marginBottom: "16px" }}>
-          <IconButton color="primary" onClick={() => navigate("/despesa-mensal/create")}>
-            <Add />
-          </IconButton>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
           <Typography variant="h6" gutterBottom>
             Despesas Mensais Recorrentes
           </Typography>
+          <IconButton color="primary" onClick={() => navigate("/despesa-mensal/create")}> 
+            <Add />
+          </IconButton>
         </div>
         <FormControl style={{ marginRight: 10, minWidth: 120 }}>
           <InputLabel>Conta Saldo</InputLabel>

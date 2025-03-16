@@ -52,14 +52,19 @@ export default function SubContaForm() {
     e.preventDefault();
     setError("");
     setLoading(true);
+    const subContaData = {
+      ...subConta,
+      contaSaldo: subConta.grupoContas ? { id: Number(subConta.grupoContas) } : null
+    };
+
     try {
       const token = await getAccessTokenSilently();
       const headers = { Authorization: `Bearer ${token}` };
 
       if (id) {
-        await axios.put(`${API_URL}/${id}`, subConta, { headers });
+        await axios.put(`${API_URL}/${id}`, subContaData, { headers });
       } else {
-        await axios.post(API_URL, subConta, { headers });
+        await axios.post(API_URL, subContaData, { headers });
       }
       navigate("/sub-conta");
     } catch (error) {
