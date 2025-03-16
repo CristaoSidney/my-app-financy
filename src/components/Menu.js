@@ -11,6 +11,8 @@ import ContraChequeRubricaForm from "./ContraChequeRubricaForm";
 import ContraChequeRubricaList from "./ContraChequeRubricaList";
 import ContaSaldoForm from "./ContaSaldoForm";
 import ContaSaldoList from "./ContaSaldoList";
+import DespesaMensalRecorrenteForm from "./DespesaMensalRecorrenteForm";
+import DespesaMensalRecorrenteList from "./DespesaMensalRecorrenteList";
 
 export default function Menu({ open, toggleDrawer }) {
   return (
@@ -31,6 +33,9 @@ export default function Menu({ open, toggleDrawer }) {
           </ListItem>
           <ListItem button component={Link} to="/conta-saldo" onClick={toggleDrawer(false)}>
             <ListItemText primary="Conta Saldo" />
+          </ListItem>
+          <ListItem button component={Link} to="/despesa-mensal" onClick={toggleDrawer(false)}>
+            <ListItemText primary="Despesa Mensal" />
           </ListItem>
         </List>
       </Drawer>
@@ -53,6 +58,9 @@ export default function Menu({ open, toggleDrawer }) {
         <Route path="/conta-saldo" element={<ContaSaldoList />} />
         <Route path="/conta-saldo/create" element={<ContaSaldoForm />} />
         <Route path="/conta-saldo/edit/:id" element={<ContaSaldoForm />} />
+        <Route path="/despesa-mensal" element={<DespesaMensalRecorrenteList />} />
+        <Route path="/despesa-mensal/create" element={<DespesaMensalRecorrenteForm />} />
+        <Route path="/despesa-mensal/edit/:id" element={<DespesaMensalRecorrenteForm />} />
       </Routes>
     </>
   );
