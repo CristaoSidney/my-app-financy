@@ -32,9 +32,8 @@ export default function SubContaForm() {
         // Se for edição, buscar a subconta
         if (id) {
           const subContaResponse = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-          console.log(subContaResponse);
           setSubConta(subContaResponse.data);
-          console.log(subConta);
+          console.log(subContaResponse.data);
         }
     } catch (error) {
         console.error("Erro ao buscar dados:", error);
