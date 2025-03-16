@@ -32,7 +32,13 @@ export default function SubContaForm() {
         // Se for edição, buscar a subconta
         if (id) {
           const subContaResponse = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-          setSubConta(subContaResponse.data);
+          const subContaData = subContaResponse.data;
+          
+          const subGrupoContaResponse = await axios.get(`${API_URL}/${subContaData.grupoContas}`, { headers: { Authorization: `Bearer ${token}` } });
+          setSubConta({
+            ...subContaData,
+            grupoContas: subGrupoContaResponse.data
+          });
         }
     } catch (error) {
         console.error("Erro ao buscar dados:", error);
@@ -52,19 +58,15 @@ export default function SubContaForm() {
     e.preventDefault();
     setError("");
     setLoading(true);
-    const subContaData = {
-      ...subConta,
-      contaSaldo: subConta.grupoContas ? { id: Number(subConta.grupoContas) } : null
-    };
-
+    
     try {
       const token = await getAccessTokenSilently();
       const headers = { Authorization: `Bearer ${token}` };
 
       if (id) {
-        await axios.put(`${API_URL}/${id}`, subContaData, { headers });
+        await axios.put(`${API_URL}/${id}`, subConta, { headers });
       } else {
-        await axios.post(API_URL, subContaData, { headers });
+        await axios.post(API_URL, subConta, { headers });
       }
       navigate("/sub-conta");
     } catch (error) {
