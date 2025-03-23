@@ -4,7 +4,7 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { 
   Table, TableBody, TableCell, TableContainer, TableHead, 
-  TableRow, Paper, Typography, IconButton, Backdrop, CircularProgress 
+  TableRow, Paper, Typography, IconButton, Backdrop, CircularProgress, Alert 
 } from "@mui/material";
 import { Delete, Edit, Add } from "@mui/icons-material";
 
@@ -13,18 +13,21 @@ const API_URL = "https://my-app-financy-backend.onrender.com/api/grupo-contas";
 export default function GrupoContaList() {
   const [grupoContas, setGrupoContas] = useState([]);
   const [loading, setLoading] = useState(true);  // Estado para indicar carregamento
+  const [error, setError] = useState("");
   const { getAccessTokenSilently } = useAuth0();
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchGrupoContas() {
       setLoading(true);  // Inicia o carregamento
+      setError("");
       try {
         const token = await getAccessTokenSilently();
         const response = await axios.get(API_URL, { headers: { Authorization: `Bearer ${token}` } });
         setGrupoContas(response.data);
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
+        setError("Falha ao carregar Grupo de Contas. Tente novamente.");
       } finally {
         setLoading(false); // Finaliza o carregamento
       }
@@ -35,12 +38,14 @@ export default function GrupoContaList() {
   const handleDelete = async (id) => {
     if (window.confirm("Tem certeza que deseja excluir este grupo?")) {
       setLoading(true);  // Ativa o loading ao excluir
+      setError("");
       try {
         const token = await getAccessTokenSilently();
         await axios.delete(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
         setGrupoContas(grupoContas.filter((grupo) => grupo.id !== id));
       } catch (error) {
         console.error("Erro ao excluir:", error);
+        setError("Erro ao excluir Grupo de Contas. Tente novamente.");
       } finally {
         setLoading(false);  // Desativa o loading
       }
@@ -58,6 +63,12 @@ export default function GrupoContaList() {
         <Typography variant="h6" gutterBottom style={{ padding: "16px" }}>
           Grupo de Contas
         </Typography>
+        {/* Exibir erro caso exista */}
+        {error && (
+          <Alert severity="error" style={{ margin: "16px" }}>
+            {error}
+          </Alert>
+        )}         
         <Table>
           <TableHead>
             <TableRow>

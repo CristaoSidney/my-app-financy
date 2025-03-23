@@ -4,7 +4,7 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import { 
   Button, TextField, MenuItem, Paper, Typography, 
-  Backdrop, CircularProgress 
+  Backdrop, CircularProgress, Alert 
 } from "@mui/material";
 
 const API_URL = "https://my-app-financy-backend.onrender.com/api/grupo-contas";
@@ -12,6 +12,7 @@ const API_URL = "https://my-app-financy-backend.onrender.com/api/grupo-contas";
 export default function GrupoContaForm() {
   const [grupoConta, setGrupoConta] = useState({ descricao: "", naturezaDaConta: "" });
   const [loading, setLoading] = useState(false); // Estado de carregamento
+  const [error, setError] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
   const { getAccessTokenSilently } = useAuth0();
@@ -33,6 +34,7 @@ export default function GrupoContaForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     setLoading(true); // Ativa loading ao enviar o formulário
     try {
       const token = await getAccessTokenSilently();
@@ -46,6 +48,11 @@ export default function GrupoContaForm() {
       navigate("/grupo-conta");
     } catch (error) {
       console.error("Erro ao salvar:", error);
+      if (error.response) {
+        setError(error.response.data.message || "Erro no servidor. Tente novamente.");
+      } else {
+        setError("Erro ao conectar com o servidor.");
+      }       
     } finally {
       setLoading(false); // Desativa loading após requisição
     }
@@ -62,6 +69,11 @@ export default function GrupoContaForm() {
         <Typography variant="h6" component="h2" gutterBottom>
           {id ? "Editar Grupo de Conta" : "Criar Grupo de Conta"}
         </Typography>
+        {error && (
+          <Alert severity="error" style={{ marginBottom: "16px" }}>
+            {error}
+          </Alert>
+        )}          
         <form onSubmit={handleSubmit}>
           <TextField
             label="Descrição"
