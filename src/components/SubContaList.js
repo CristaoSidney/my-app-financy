@@ -84,7 +84,7 @@ export default function SubContaList() {
                 <TableCell>{subConta.id}</TableCell>
                 <TableCell>{subConta.descricao}</TableCell>
                 <TableCell>{subConta.naturezaDaConta}</TableCell>
-                <TableCell>{subConta.grupoContas?.descricao || "N/A"}</TableCell>
+                <TableCell>{subConta.grupoContasDescricao}</TableCell>
                 <TableCell>
                   <IconButton color="primary" onClick={() => navigate(`/sub-conta/edit/${subConta.id}`)} aria-label="editar">
                     <Edit />

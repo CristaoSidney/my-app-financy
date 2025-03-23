@@ -11,7 +11,7 @@ const API_URL = "https://my-app-financy-backend.onrender.com/api/sub-conta";
 const API_GRUPO_URL = "https://my-app-financy-backend.onrender.com/api/grupo-contas";
 
 export default function SubContaForm() {
-  const [subConta, setSubConta] = useState({ descricao: "", naturezaDaConta: "", grupoContas: "" });
+  const [subConta, setSubConta] = useState({ descricao: "", naturezaDaConta: "", grupoContasId: "" });
   const [grupos, setGrupos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -32,10 +32,14 @@ export default function SubContaForm() {
         // Se for edição, buscar a subconta
         if (id) {
           const subContaResponse = await axios.get(`${API_URL}/${id}`, { headers: { Authorization: `Bearer ${token}` } });
-          setSubConta(subContaResponse.data);
-          console.log(subContaResponse.data);
+          const data = subContaResponse.data;
+          setSubConta({
+            descricao: data.descricao,
+            naturezaDaConta: data.naturezaDaConta,
+            grupoContasId: data.grupoContasId || ""
+          });
         }
-    } catch (error) {
+      } catch (error) {
         console.error("Erro ao buscar dados:", error);
         setError("Falha ao carregar os dados. Tente novamente.");
       } finally {
@@ -116,8 +120,8 @@ export default function SubContaForm() {
           </TextField>
           <TextField
             label="Grupo de Contas"
-            name="grupoContas"
-            value={subConta.grupoContas.descricao}
+            name="grupoContasId"
+            value={subConta.grupoContasId}
             onChange={handleChange}
             select
             fullWidth
